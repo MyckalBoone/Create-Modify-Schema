@@ -1,0 +1,130 @@
+drop table stayfit.userdata;
+
+drop table stayfit.users;
+
+drop schema stayfit restrict;
+
+create schema stayfit;
+
+create table stayfit.users(
+username varchar(255),
+firstname varchar(255) Not Null,
+lastname varchar(255) Not Null,
+dateofbirth date Not Null,
+gender varchar(255) Not Null,
+primary key(username)
+);
+
+create table stayfit.userdata(
+currentdate date Not Null,
+weight float Not Null,
+height float Not Null,
+waist float Not Null,
+hip float Not Null,
+activitylevel integer Not Null,
+username varchar(255),
+foreign key (username) REFERENCES stayfit.users(username) 
+);
+
+--insert 10 users records
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('mboone', 'myckal', 'boone', '1995-06-14', 'male');
+
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('dj', 'd', 'j', '1993-09-09', 'male');
+
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('car', 'carl', 'jog', '1997-08-08', 'male');
+
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('jo', 'joey', 'jenkins', '1998-07-07', 'female');
+
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('esha', 'aesha', 'johns', '1993-06-06', 'female');
+
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('sunny', 'sun', 'dawg', '1988-09-24', 'male');
+
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('bo', 'bob', 'thornton', '1970-06-14', 'male');
+
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('scar', 'lion', 'king', '1995-05-05', 'male');
+
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('buzz', 'buzo', 'lightyear', '1997-04-04', 'male');
+
+INSERT INTO stayfit.users (username, firstname, lastname, dateofbirth, gender)
+VALUES ('tommy', 'rug', 'rat', '1993-04-04', 'male');
+
+--inserting 10 different records into userdata table
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('sunny', '2020-04-28', 135, 72, 30, 32, 5);
+
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('mboone', '2020-04-28', 200, 80, 38, 36, 5);
+
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('scar', '2022-04-28', 100, 60, 28, 26, 5);
+
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('esha', '2020-04-28', 167, 67, 30, 28, 5);
+
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('tommy', '2020-04-28', 205, 78, 34, 32, 6);
+
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('jo', '2020-04-28', 326, 79, 40, 38, 2);
+
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('car', '2020-04-28', 189, 71, 38, 36, 3);
+
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('dj', '2020-04-28', 283, 74, 42, 40, 1);
+
+
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('bo', '2020-04-28', 122, 62, 26, 24, 7);
+
+
+INSERT INTO stayfit.userdata (username, currentdate, weight, height, waist, hip, activitylevel)
+VALUES ('buzz', '2020-04-28', 197, 75, 34, 32, 5);
+
+--update 2 users lastname
+update stayfit.users
+set lastname = 'bird'
+where username = 'sunny';
+
+update stayfit.users
+set lastname = 'rona'
+where username = 'esha';
+
+--update 2 users weight userdata
+update stayfit.userdata
+set weight = 350
+where username = 'sunny';
+
+update stayfit.userdata
+set weight = 150
+where username = 'mboone';
+
+-- delete 1 record
+delete from stayfit.userdata
+where username = 'sunny';
+
+--displays all rows in the users table and sort them in descending order based on based on lastname
+select * from stayfit.users order by lastname asc;
+
+--#8 (all my current dates are april 2020)
+select * from stayfit.userdata
+where currentdate between '2019-01-01' and '2019-12-31';
+
+--#9
+select weight from stayfit.userdata, stayfit.users
+where activitylevel between 3 and 6
+And dateofbirth > '2002-04-28';
+
+--#10
+
+select firstname, lastname, currentdate, weight from stayfit.USERS c, stayfit.USERDATA o
+where c.USERNAME = o.USERNAME; 
